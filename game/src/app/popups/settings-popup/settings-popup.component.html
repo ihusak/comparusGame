@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Settings</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Set timer (ms)</mat-label>
+    <input matInput placeholder="Timer" [(ngModel)]="gameSpeed">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="save()">save</button>
+  <button mat-button mat-dialog-close>close</button>
+</div>
+

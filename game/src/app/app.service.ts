@@ -8,7 +8,10 @@ export interface SquareItem {
   pending: boolean;
   disabled: boolean;
 }
-
+export enum whoWon {
+  computer = 'computer',
+  user = 'user'
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +37,12 @@ export class AppService {
       });
     }
 
-    console.log(objectsArray);
     return objectsArray;
+  }
+  public _defineWinner(square: SquareItem, winner: whoWon) {
+    square.checked = true;
+    square.pending = false;
+    square.disabled = true;
+    square.whoWon = winner;
   }
 }

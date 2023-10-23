@@ -8,3 +8,8 @@ html, body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.end-game-popup {
+  mat-dialog-container {
+    background: #fff no-repeat url("/assets/fireworks.gif") !important;
+  }
+}

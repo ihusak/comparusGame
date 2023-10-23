@@ -8,6 +8,7 @@
     </div>
   </div>
 </div>
+<div class="speed-info">game speed: {{gameSpeed}}ms</div>
 <div class="main-template">
   <div class="game-field">
     <div class="item" [ngClass]="item.checked ? item.whoWon : item.pending ? 'pending' : ''" (click)="handler(item)" *ngFor="let item of data" data-id="{{item.id}}">
@@ -15,9 +16,10 @@
   </div>
 </div>
 <div class="bottom">
-  <button (click)="startGame()" mat-stroked-button color="primary">Start</button>
+  <button *ngIf="!restartGameCond" (click)="startGame()" mat-stroked-button color="primary">Start</button>
+  <button *ngIf="restartGameCond" (click)="restartGame()" mat-stroked-button color="primary">Restart</button>
   <div class="icons">
-    <mat-icon (click)="openSettings()" aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">info</mat-icon>
+    <mat-icon matTooltip="game settings" (click)="openSettings()" aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
+    <mat-icon (click)="openGameInfo()" matTooltip="game info" aria-hidden="false" aria-label="Example home icon">info</mat-icon>
   </div>
 </div>

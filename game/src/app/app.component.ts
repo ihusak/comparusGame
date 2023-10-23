@@ -1,11 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AppService, SquareItem} from './app.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-
-enum whoWon {
-  computer = 'computer',
-  user = 'user'
-}
+import {Component, OnInit} from '@angular/core';
+import {AppService, SquareItem, whoWon} from './app.service';
+import {MatDialog} from '@angular/material/dialog';
+import {SettingsPopupComponent} from "./popups/settings-popup/settings-popup.component";
+import {EndGamePopupComponent} from "./popups/end-game-popup/end-game-popup.component";
+import {InfoGamePopupComponent} from "./popups/info-game-popup/info-game-popup.component";
 
 @Component({
   selector: 'app-root',
@@ -13,101 +11,75 @@ enum whoWon {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'game';
-  data: SquareItem[] = [];
-  filteredData: SquareItem[];
-  timeOut: number = null;
+  public data: SquareItem[] = [];
   public scoreComputer: number = 0;
   public scoreUser: number = 0;
+  public restartGameCond: boolean = false;
+  public gameSpeed: number = 800;
+  private filteredData: SquareItem[];
+  private timeOut: number = null;
+  private interval: number = null;
   constructor(public appService: AppService, public dialog: MatDialog) {}
-  public handler(item: SquareItem) {
-    console.log(item);
-    if (item.disabled) return;
-    item.checked = true;
-    item.whoWon = whoWon.user;
-    item.pending = false;
-    item.disabled = true;
+  ngOnInit() {
+    this.data = this.appService.generateData();
+  }
+  public handler(square: SquareItem) {
+    if (square.disabled) return;
+    this.appService._defineWinner(square, whoWon.user)
     this.scoreUser += 1;
     clearTimeout(this.timeOut);
   }
   public startGame() {
-    const data = this.data;
-    const interval = setInterval(() => {
-      this.filteredData = data.filter(item => item.checked !== true);
-      if (this.filteredData.length === 0) {
-        clearInterval(interval);
+    this.interval = setInterval(() => {
+      this.filteredData = this.data.filter(item => item.checked !== true);
+      if (this.filteredData.length === 0 || this.scoreComputer === 10 || this.scoreUser === 10) {
         this.endGame();
         return;
       }
-      const randomItem = this.filteredData[Math.floor(Math.random() * this.filteredData.length)];
-      randomItem.pending = true;
-      randomItem.disabled = false;
+      const randomSquare: SquareItem = this.filteredData[Math.floor(Math.random() * this.filteredData.length)];
+      randomSquare.pending = true;
+      randomSquare.disabled = false;
       this.timeOut = setTimeout(() => {
-        randomItem.pending = false;
-        randomItem.disabled = true;
-        randomItem.whoWon = whoWon.computer;
-        randomItem.checked = true;
+        this.appService._defineWinner(randomSquare, whoWon.computer);
         this.scoreComputer += 1;
-      }, 800);
-    }, 850);
+      }, this.gameSpeed);
+    }, this.gameSpeed + 10);
+  }
+  public restartGame() {
+    if(this.restartGame) {
+      this.data = this.appService.generateData();
+      this.restartGameCond = false;
+      this.scoreUser = 0;
+      this.scoreComputer = 0;
+    }
+    this.startGame();
   }
   public openSettings() {
-    const dialogRef = this.dialog.open(SettingsPopup, {
-      width: '250px'
+    const dialogRef = this.dialog.open(SettingsPopupComponent, {
+      width: '350px',
+      data: {gameSpeed: this.gameSpeed}
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result) {
+        this.gameSpeed = parseInt(result);
+      }
     });
   }
   private endGame() {
-    const dialogRef = this.dialog.open(EndGamePopup, {
-      width: '250px',
+    clearInterval(this.interval);
+    const dialogRef = this.dialog.open(EndGamePopupComponent, {
+      width: '350px',
+      panelClass: 'end-game-popup',
       data: {scoreComputer: this.scoreComputer, scoreUser: this.scoreUser}
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.restartGameCond = true;
     });
   }
-  ngOnInit() {
-    this.data = this.appService.generateData();
+  public openGameInfo() {
+    const dialogRef = this.dialog.open(InfoGamePopupComponent, {
+      width: '450px',
+    });
   }
-}
-
-@Component({
-  selector: 'app-settings-popup',
-  templateUrl: './popups/settings-popup.html',
-})
-export class SettingsPopup {
-
-  constructor(
-    public dialogRef: MatDialogRef<SettingsPopup>,
-    // @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}
-
-@Component({
-  selector: 'app-settings-popup',
-  templateUrl: './popups/settings-popup.html',
-})
-export class EndGamePopup {
-
-  constructor(
-    public dialogRef: MatDialogRef<EndGamePopup>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    console.log(data);
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 }
 

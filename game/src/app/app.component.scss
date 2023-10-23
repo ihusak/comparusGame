@@ -35,15 +35,14 @@
 .top {
   .score-field {
     margin-bottom: 10px;
-    //.score-wrap {
-    //  display: flex;
-    //  align-items: center;
-    //  flex-direction: column;
-    //  .score-item {
-    //    display: flex;
-    //    justify-content: space-between;
-    //  }
-    //}
+    .score-wrap {
+      .score-item {
+        display: flex;
+        justify-content: space-between;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
   }
 }
 .bottom {
@@ -63,4 +62,8 @@
       }
     }
   }
+}
+.speed-info {
+  font-size: 10px;
+  text-align: center;
 }
