@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
     this.interval = setInterval(() => {
       this.filteredData = this.data.filter(item => item.checked !== true);
       if (this.filteredData.length === 0 || this.scoreComputer === 10 || this.scoreUser === 10) {
+        clearTimeout(this.timeOut)
         this.endGame();
         return;
       }
@@ -41,12 +42,14 @@ export class AppComponent implements OnInit {
       randomSquare.disabled = false;
       this.timeOut = setTimeout(() => {
         this.appService._defineWinner(randomSquare, whoWon.computer);
-        this.scoreComputer += 1;
+        if(this.scoreComputer < 10) {
+          this.scoreComputer += 1;
+        }
       }, this.gameSpeed);
-    }, this.gameSpeed + 10);
+    }, this.gameSpeed);
   }
   public restartGame() {
-    if(this.restartGame) {
+    if(this.restartGameCond) {
       this.data = this.appService.generateData();
       this.restartGameCond = false;
       this.scoreUser = 0;
