@@ -1,0 +1,23 @@
+<div class="top">
+  <h1>Game</h1>
+  <div class="score-field">
+    <div><b>Score</b></div>
+    <div class="score-wrap">
+      <div class="score-item"><span>Computer:</span><span>{{scoreComputer}} {{scoreComputer === 1 ? 'point' : 'points'}}</span></div>
+      <div class="score-item"><span>User:</span><span>{{scoreUser}} {{scoreUser === 1 ? 'point' : 'points'}}</span></div>
+    </div>
+  </div>
+</div>
+<div class="main-template">
+  <div class="game-field">
+    <div class="item" [ngClass]="item.checked ? item.whoWon : item.pending ? 'pending' : ''" (click)="handler(item)" *ngFor="let item of data" data-id="{{item.id}}">
+    </div>
+  </div>
+</div>
+<div class="bottom">
+  <button (click)="startGame()" mat-stroked-button color="primary">Start</button>
+  <div class="icons">
+    <mat-icon (click)="openSettings()" aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">info</mat-icon>
+  </div>
+</div>
