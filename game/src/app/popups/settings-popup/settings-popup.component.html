@@ -4,9 +4,18 @@
     <mat-label>Set timer (ms)</mat-label>
     <input matInput placeholder="Timer" [(ngModel)]="gameSpeed">
   </mat-form-field>
+  <mat-error *ngIf="gameSpeed <= 0">
+    Timer should be more than 1
+  </mat-error>
+  <mat-form-field>
+    <mat-label>Board size</mat-label>
+    <input required matInput placeholder="Size" min="10" [(ngModel)]="boardSize">
+  </mat-form-field>
+  <mat-error *ngIf="boardSize < 10">
+    Board size should be more or equal to 10
+  </mat-error>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="save()">save</button>
-  <button mat-button mat-dialog-close>close</button>
+  <button mat-button [disabled]="boardSize < 10" (click)="save()">save</button>
 </div>
 

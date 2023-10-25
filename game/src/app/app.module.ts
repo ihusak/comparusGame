@@ -12,13 +12,20 @@ import {EndGamePopupComponent} from './popups/end-game-popup/end-game-popup.comp
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {InfoGamePopupComponent} from './popups/info-game-popup/info-game-popup.component';
 import {FormsModule} from '@angular/forms';
+import {SquareItemFactory} from './factories/factory-board';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SettingsPopupComponent,
     EndGamePopupComponent,
-    InfoGamePopupComponent
+    InfoGamePopupComponent,
+    HeaderComponent,
+    FooterComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,7 @@ import {FormsModule} from '@angular/forms';
     MatTooltipModule,
     FormsModule
   ],
-  providers: [],
+  providers: [SquareItemFactory],
   entryComponents: [SettingsPopupComponent, EndGamePopupComponent, InfoGamePopupComponent],
   bootstrap: [AppComponent]
 })

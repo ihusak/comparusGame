@@ -1,25 +1,3 @@
-<div class="top">
-  <h1>Game</h1>
-  <div class="score-field">
-    <div><b>Score</b></div>
-    <div class="score-wrap">
-      <div class="score-item"><span>Computer:</span><span>{{scoreComputer}} {{scoreComputer === 1 ? 'point' : 'points'}}</span></div>
-      <div class="score-item"><span>User:</span><span>{{scoreUser}} {{scoreUser === 1 ? 'point' : 'points'}}</span></div>
-    </div>
-  </div>
-</div>
-<div class="speed-info">game speed: {{gameSpeed}}ms</div>
-<div class="main-template">
-  <div class="game-field">
-    <div class="item" [ngClass]="item.checked ? item.whoWon : item.pending ? 'pending' : ''" (click)="handler(item)" *ngFor="let item of data" data-id="{{item.id}}">
-    </div>
-  </div>
-</div>
-<div class="bottom">
-  <button *ngIf="!restartGameCond" (click)="startGame()" mat-stroked-button color="primary">Start</button>
-  <button *ngIf="restartGameCond" (click)="restartGame()" mat-stroked-button color="primary">Restart</button>
-  <div class="icons">
-    <mat-icon matTooltip="game settings" (click)="openSettings()" aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
-    <mat-icon (click)="openGameInfo()" matTooltip="game info" aria-hidden="false" aria-label="Example home icon">info</mat-icon>
-  </div>
-</div>
+<app-header></app-header>
+<app-board></app-board>
+<app-footer (changeSettings)="changeSettings($event)"></app-footer>
