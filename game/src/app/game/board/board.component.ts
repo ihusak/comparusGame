@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppService} from '../app.service';
+import {GameEngineService} from '../../game-engine.service';
 
 @Component({
   selector: 'app-board',
@@ -7,5 +7,5 @@ import {AppService} from '../app.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
-  constructor(public appService: AppService) {}
+  constructor(public gameEngine: GameEngineService) {}
 }

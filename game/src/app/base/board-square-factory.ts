@@ -1,4 +1,4 @@
-import {SquareItem} from '../app.service';
+import {SquareItem} from '../game-engine.service';
 
 abstract class SquareFactory {
   abstract createSquare(data: Partial<SquareItem>): SquareItem;

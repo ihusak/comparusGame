@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {SquareItemFactory} from './factories/factory-board';
+import {SquareItemFactory} from './base/board-square-factory';
 import {EndGamePopupComponent} from './popups/end-game-popup/end-game-popup.component';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -19,14 +19,14 @@ export enum whoWon {
 @Injectable({
   providedIn: 'root'
 })
-export class AppService {
+export class GameEngineService {
   public data: SquareItem[];
   public scoreComputer: number = 0;
   public scoreUser: number = 0;
   public gameSpeed: number = 800;
   public boardSize: number = 100;
   public restartGameCond: boolean = false;
-  public pendingGame: boolean = false;
+  private pendingGame: boolean = false;
   private filteredData: SquareItem[];
   private currentSquare: SquareItem;
   private timeOut: number;

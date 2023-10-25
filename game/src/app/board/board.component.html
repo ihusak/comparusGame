@@ -1,6 +1,0 @@
-<div class="main-template">
-  <div class="game-field">
-    <div class="item" [style.background]="item.color" [ngClass]="item.checked ? item.whoWon : item.pending ? 'pending' : ''" (click)="appService.userHandler(item)" *ngFor="let item of appService.data" data-id="{{item.id}}">
-    </div>
-  </div>
-</div>

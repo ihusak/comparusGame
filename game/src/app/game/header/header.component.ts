@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppService} from '../app.service';
+import {GameEngineService} from '../../game-engine.service';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +7,6 @@ import {AppService} from '../app.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(public appService: AppService) {}
+  constructor(public gameEngine: GameEngineService) {}
 
 }

@@ -12,10 +12,10 @@ import {EndGamePopupComponent} from './popups/end-game-popup/end-game-popup.comp
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {InfoGamePopupComponent} from './popups/info-game-popup/info-game-popup.component';
 import {FormsModule} from '@angular/forms';
-import {SquareItemFactory} from './factories/factory-board';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { BoardComponent } from './board/board.component';
+import {SquareItemFactory} from './base/board-square-factory';
+import { HeaderComponent } from './game/header/header.component';
+import { FooterComponent } from './game/footer/footer.component';
+import { BoardComponent } from './game/board/board.component';
 
 @NgModule({
   declarations: [

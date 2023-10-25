@@ -1,6 +1,6 @@
 <div class="footer">
-  <button *ngIf="!appService.restartGameCond" [disabled]="appService.pendingGame" (click)="appService.playRound()" mat-stroked-button color="primary">Start</button>
-  <button *ngIf="appService.restartGameCond" (click)="appService.restartGame()" mat-stroked-button color="primary">Restart</button>
+  <button *ngIf="!gameEngine.restartGameCond" [disabled]="gameEngine.pendingGame" (click)="gameEngine.playRound()" mat-stroked-button color="primary">Start</button>
+  <button *ngIf="gameEngine.restartGameCond" (click)="gameEngine.restartGame()" mat-stroked-button color="primary">Restart</button>
   <div class="icons">
     <mat-icon matTooltip="game settings" (click)="openSettings()" aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
     <mat-icon (click)="openGameInfo()" matTooltip="game info" aria-hidden="false" aria-label="Example home icon">info</mat-icon>

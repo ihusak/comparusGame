@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AppService} from '../../app.service';
+import {GameEngineService} from '../../game-engine.service';
 
 @Component({
   selector: 'app-settings-popup',
@@ -13,10 +13,10 @@ export class SettingsPopupComponent {
   constructor(
     public dialogRef: MatDialogRef<SettingsPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private appService: AppService
+    private gameEngine: GameEngineService
   ) {
-    this.gameSpeed = this.appService.gameSpeed;
-    this.boardSize = this.appService.boardSize;
+    this.gameSpeed = this.gameEngine.gameSpeed;
+    this.boardSize = this.gameEngine.boardSize;
   }
 
   save(): void {
